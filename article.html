@@ -1,0 +1,842 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#063729">
+<meta name="description" content="اقرأ المقالات والدراسات التاريخية في موسوعة معالم وأعلام إسلامية.">
+<title>قراءة المقال | معالم وأعلام إسلامية</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+--green:#063729;
+--deep:#041f18;
+--green2:#0b5942;
+--gold:#c89b3c;
+--gold2:#e2bd72;
+--cream:#fbf9f4;
+--paper:#f3eee3;
+--ink:#192b24;
+--muted:#718078;
+--white:#fff;
+--border:rgba(6,55,41,.12);
+--shadow:0 10px 35px rgba(4,31,24,.07);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+font-family:'IBM Plex Sans Arabic',sans-serif;
+background:var(--cream);
+color:var(--ink);
+line-height:1.9;
+}
+h1,h2,h3,button{font-family:'Cairo',sans-serif}
+a{text-decoration:none;color:inherit}
+.container{width:min(1100px,92%);margin:auto}
+
+/* Header */
+header{
+background:var(--deep);
+border-bottom:2px solid var(--gold);
+position:sticky;top:0;z-index:100;
+}
+.nav{
+min-height:76px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:15px;
+}
+.brand{display:flex;align-items:center;gap:12px;color:white}
+.logo{
+width:46px;height:46px;border:1px solid var(--gold);
+border-radius:13px;display:grid;place-items:center;
+color:var(--gold2);font-size:25px;
+}
+.brand-name{font-family:'Cairo';font-weight:800;color:var(--gold2)}
+.brand-sub{font-size:.72rem;color:#ddd}
+.home-link{
+color:white;border:1px solid #c89b3c66;
+padding:8px 15px;border-radius:9px;font-size:.86rem;
+transition:.2s;
+}
+.home-link:hover{background:var(--gold);color:var(--deep)}
+
+/* Reading progress */
+.progress-track{
+height:3px;background:#ffffff20;
+position:absolute;bottom:-1px;right:0;left:0;
+}
+.progress-bar{
+height:3px;width:0;background:var(--gold2);
+}
+
+/* Breadcrumb */
+.breadcrumb{
+padding:20px 0;
+font-size:.83rem;color:var(--muted);
+}
+.breadcrumb a{color:var(--green2)}
+.breadcrumb span{margin:0 8px}
+
+/* Article heading */
+.article-header{
+max-width:900px;margin:10px auto 28px;
+text-align:center;
+}
+.category{
+display:inline-block;
+padding:5px 16px;border-radius:30px;
+background:#eae1cb;color:var(--green);
+font-size:.82rem;font-weight:700;
+margin-bottom:15px;
+}
+.article-header h1{
+font-size:clamp(1.8rem,4vw,2.8rem);
+line-height:1.5;color:var(--green);
+margin-bottom:15px;
+}
+.excerpt{
+color:var(--muted);
+font-size:1.05rem;
+max-width:760px;margin:auto;
+}
+.meta{
+display:flex;justify-content:center;
+gap:18px;flex-wrap:wrap;
+margin-top:22px;
+font-size:.83rem;color:var(--muted);
+}
+
+/* Cover */
+.cover{
+width:100%;height:430px;
+border-radius:20px;overflow:hidden;
+background:var(--green);
+margin-bottom:25px;
+box-shadow:var(--shadow);
+}
+.cover img{width:100%;height:100%;object-fit:cover}
+
+/* Action bar */
+.action-bar{
+display:flex;justify-content:space-between;
+align-items:center;gap:12px;flex-wrap:wrap;
+padding:15px 0;
+border-bottom:1px solid var(--border);
+margin-bottom:30px;
+}
+.actions{display:flex;gap:9px;flex-wrap:wrap}
+.action-btn{
+border:1px solid var(--border);
+background:white;color:var(--green);
+padding:8px 14px;border-radius:9px;
+font-size:.83rem;font-weight:700;
+}
+.action-btn:hover{background:var(--green);color:var(--gold2)}
+.reading-label{font-size:.82rem;color:var(--muted)}
+
+/* Main layout */
+.article-layout{
+display:grid;
+grid-template-columns:minmax(0,1fr) 260px;
+gap:35px;
+align-items:start;
+}
+.article-body{
+background:white;
+border:1px solid var(--border);
+border-radius:17px;
+padding:clamp(20px,4vw,45px);
+box-shadow:var(--shadow);
+min-width:0;
+}
+.article-content{
+font-size:1.08rem;
+line-height:2.25;
+color:#26352e;
+overflow-wrap:anywhere;
+}
+.article-content p{margin-bottom:22px}
+.article-content h2{
+font-size:1.55rem;
+color:var(--green);
+margin:35px 0 15px;
+padding-right:14px;
+border-right:4px solid var(--gold);
+line-height:1.6;
+}
+.article-content h3{
+font-size:1.25rem;color:var(--green2);
+margin:27px 0 12px;
+}
+.article-content blockquote{
+border-right:4px solid var(--gold);
+background:var(--paper);
+padding:18px 22px;
+margin:25px 0;
+border-radius:10px;
+color:var(--green);
+}
+.article-content ul,.article-content ol{
+padding-right:25px;margin:15px 0 25px;
+}
+.article-content li{margin-bottom:9px}
+
+/* Sidebar */
+.sidebar{position:sticky;top:100px}
+.side-card{
+background:white;border:1px solid var(--border);
+border-radius:15px;padding:20px;
+margin-bottom:17px;
+}
+.side-card h3{
+color:var(--green);font-size:1.05rem;
+margin-bottom:14px;
+padding-bottom:10px;
+border-bottom:1px solid var(--border);
+}
+.toc-list{list-style:none}
+.toc-list li{margin-bottom:9px}
+.toc-list a{
+font-size:.84rem;color:var(--muted);
+display:block;
+}
+.toc-list a:hover{color:var(--gold)}
+.toc-empty{font-size:.83rem;color:var(--muted)}
+.side-note{
+font-size:.84rem;color:var(--muted);
+}
+
+/* Sources */
+.sources{
+margin-top:35px;padding-top:25px;
+border-top:1px solid var(--border);
+}
+.sources h3{color:var(--green);margin-bottom:12px}
+.sources ul{padding-right:22px}
+.sources li{margin-bottom:8px;font-size:.9rem}
+.sources a{color:var(--green2);text-decoration:underline}
+
+/* Related */
+.related-section{padding:70px 0}
+.section-title{
+color:var(--green);font-size:1.6rem;
+margin-bottom:25px;
+}
+.related-grid{
+display:grid;grid-template-columns:repeat(3,1fr);gap:18px;
+}
+.related-card{
+background:white;border:1px solid var(--border);
+border-radius:15px;padding:20px;
+transition:.2s;
+}
+.related-card:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+.related-card span{font-size:.77rem;color:#a47c2e}
+.related-card h3{font-size:1.05rem;color:var(--green);margin:10px 0}
+.related-card p{font-size:.85rem;color:var(--muted)}
+.related-card a{
+display:inline-block;margin-top:12px;
+font-size:.85rem;color:var(--green2);font-weight:700;
+}
+
+/* States */
+.state{
+max-width:750px;margin:70px auto;
+background:white;padding:45px 25px;
+border-radius:18px;text-align:center;
+border:1px solid var(--border);
+box-shadow:var(--shadow);
+}
+.state h2{color:var(--green);margin-bottom:12px}
+.state p{color:var(--muted)}
+.state a{
+display:inline-block;margin-top:20px;
+background:var(--green);color:var(--gold2);
+padding:10px 22px;border-radius:9px;
+}
+.loading{
+width:38px;height:38px;margin:0 auto 20px;
+border:4px solid var(--paper);
+border-top-color:var(--gold);
+border-radius:50%;
+animation:spin .8s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* Footer */
+footer{
+background:var(--deep);color:white;
+padding:35px 0;text-align:center;
+border-top:3px solid var(--gold);
+}
+.footer-title{color:var(--gold2);font-weight:800;font-family:'Cairo';font-size:1.2rem}
+footer p{font-size:.83rem;color:#ddd;margin-top:7px}
+
+@media(max-width:850px){
+.article-layout{grid-template-columns:1fr}
+.sidebar{position:static}
+.cover{height:330px}
+.related-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:550px){
+.nav{min-height:68px}
+.brand-name{font-size:.9rem}
+.brand-sub{font-size:.65rem}
+.home-link{font-size:.76rem;padding:7px 10px}
+.cover{height:230px;border-radius:13px}
+.article-header h1{font-size:1.75rem}
+.article-content{font-size:1rem;line-height:2.1}
+.article-body{padding:20px 16px}
+.related-grid{grid-template-columns:1fr}
+.meta{gap:10px}
+}
+@media print{
+header,.action-bar,.sidebar,.related-section,footer,.progress-track{display:none!important}
+body{background:white}
+.container{width:100%}
+.article-layout{display:block}
+.article-body{border:0;box-shadow:none;padding:0}
+.cover{height:280px}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<div class="container nav">
+<a href="index.html" class="brand">
+<div class="logo">۞</div>
+<div>
+<div class="brand-name">معالم وأعلام إسلامية</div>
+<div class="brand-sub">موسوعة التراث والحضارة</div>
+</div>
+</a>
+
+<a href="index.html" class="home-link">← العودة للموسوعة</a>
+</div>
+<div class="progress-track">
+<div class="progress-bar" id="progressBar"></div>
+</div>
+</header>
+
+<main class="container">
+
+<div class="breadcrumb">
+<a href="index.html">الرئيسية</a>
+<span>←</span>
+<a href="index.html#articles">المقالات والدراسات</a>
+<span>←</span>
+<span id="breadcrumbTitle">قراءة المقال</span>
+</div>
+
+<div id="loadingState" class="state">
+<div class="loading"></div>
+<h2>جارٍ تحميل المقال</h2>
+<p>نستحضر صفحات المعرفة من ذاكرة الحضارة...</p>
+</div>
+
+<div id="errorState" class="state" hidden>
+<h2 id="errorTitle">تعذر العثور على المقال</h2>
+<p id="errorMessage">قد يكون الرابط غير صحيح أو أن المقال غير متاح حالياً.</p>
+<a href="index.html">العودة إلى الموسوعة</a>
+</div>
+
+<div id="articlePage" hidden>
+
+<div class="article-header">
+<span class="category" id="articleCategory"></span>
+<h1 id="articleTitle"></h1>
+<p class="excerpt" id="articleExcerpt"></p>
+<div class="meta">
+<span id="articleAuthor"></span>
+<span id="articleDate"></span>
+<span id="readingTime"></span>
+</div>
+</div>
+
+<div class="cover">
+<img id="articleImage" alt="صورة المقال الرئيسية">
+</div>
+
+<div class="action-bar">
+<div class="actions">
+<button class="action-btn" id="shareBtn">↗ مشاركة المقال</button>
+<button class="action-btn" id="copyBtn">▣ نسخ الرابط</button>
+<button class="action-btn" id="printBtn">▤ طباعة</button>
+</div>
+<span class="reading-label">قراءة معرفية موثقة</span>
+</div>
+
+<div class="article-layout">
+
+<article class="article-body">
+<div class="article-content" id="articleContent"></div>
+
+<div class="sources" id="sourcesSection" hidden>
+<h3>المصادر والمراجع</h3>
+<ul id="sourcesList"></ul>
+</div>
+</article>
+
+<aside class="sidebar">
+<div class="side-card">
+<h3>محتويات المقال</h3>
+<ul class="toc-list" id="tocList">
+<li class="toc-empty">لا توجد عناوين فرعية.</li>
+</ul>
+</div>
+
+<div class="side-card">
+<h3>عن الموسوعة</h3>
+<p class="side-note">
+معالم وأعلام إسلامية، موسوعة معرفية تسعى إلى توثيق التراث المعماري والتاريخي والتعريف بأعلام الحضارة الإسلامية.
+</p>
+</div>
+
+<div class="side-card">
+<h3>تابع القراءة</h3>
+<p class="side-note">اكتشف المزيد من المقالات والدراسات في موسوعتنا.</p>
+<a href="index.html#articles" style="display:block;margin-top:12px;color:#0b5942;font-weight:700;font-size:.86rem">تصفح جميع المقالات ←</a>
+</div>
+</aside>
+
+</div>
+
+<section class="related-section" id="relatedSection" hidden>
+<h2 class="section-title">موضوعات ذات صلة</h2>
+<div class="related-grid" id="relatedGrid"></div>
+</section>
+
+</div>
+</main>
+
+<footer>
+<div class="container">
+<div class="footer-title">معالم وأعلام إسلامية</div>
+<p>موسوعة التراث المعماري وسِيَر الخالدين</p>
+<p>جميع الحقوق محفوظة © 2026 — Landmarksi</p>
+</div>
+</footer>
+
+<script src="config.js"></script>
+<script>
+"use strict";
+
+const DB = window.LANDMARKSI_DB || {};
+const HAS_DB = Boolean(
+DB.url &&
+DB.anonKey &&
+!DB.url.includes("YOUR-PROJECT-ID")
+);
+
+const params = new URLSearchParams(location.search);
+const articleId = params.get("id");
+
+let currentArticle = null;
+
+const $ = id => document.getElementById(id);
+
+async function sbFetch(path){
+const response = await fetch(`${DB.url}/rest/v1/${path}`,{
+method:"GET",
+headers:{
+"apikey":DB.anonKey,
+"Authorization":`Bearer ${DB.anonKey}`,
+"Accept":"application/json"
+}
+});
+
+if(!response.ok){
+throw new Error(await response.text());
+}
+
+return response.json();
+}
+
+function safeImage(image){
+if(!image)return "";
+
+try{
+const url = new URL(image,location.href);
+if(url.protocol!=="https:" && url.protocol!=="http:")return "";
+return url.href;
+}catch(e){
+return "";
+}
+}
+
+function fallbackImage(){
+const svg = `
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="550">
+<rect width="100%" height="100%" fill="#063729"/>
+<circle cx="500" cy="230" r="110" fill="none" stroke="#c89b3c" stroke-width="3"/>
+<path d="M420 270 Q500 100 580 270" fill="none" stroke="#e2bd72" stroke-width="4"/>
+<text x="500" y="390" fill="#e2bd72" font-size="34" text-anchor="middle">معالم وأعلام إسلامية</text>
+</svg>`;
+return "data:image/svg+xml;charset=UTF-8,"+encodeURIComponent(svg);
+}
+
+function showError(title,message){
+$("loadingState").hidden=true;
+$("articlePage").hidden=true;
+$("errorState").hidden=false;
+$("errorTitle").textContent=title;
+$("errorMessage").textContent=message;
+}
+
+function formatDate(value){
+if(!value)return "تاريخ النشر غير محدد";
+
+const date = new Date(value);
+
+if(Number.isNaN(date.getTime()))return String(value);
+
+return new Intl.DateTimeFormat("ar",{
+year:"numeric",
+month:"long",
+day:"numeric"
+}).format(date);
+}
+
+function estimateReadingTime(content){
+const words = String(content||"").trim().split(/\s+/).filter(Boolean).length;
+const minutes = Math.max(1,Math.ceil(words/200));
+return `⏱ ${minutes} دقائق للقراءة`;
+}
+
+/*
+يعرض محتوى المقال كنص آمن.
+يدعم العناوين التي تبدأ بـ # أو ## أو ###،
+والقوائم التي تبدأ بـ - أو *.
+لا ينفذ HTML أو JavaScript الموجود داخل المقال.
+*/
+function renderContent(content){
+const container=$("articleContent");
+container.replaceChildren();
+
+const lines=String(content||"").replace(/\r/g,"").split("\n");
+let paragraph=[];
+let list=null;
+
+function flushParagraph(){
+if(!paragraph.length)return;
+const p=document.createElement("p");
+p.textContent=paragraph.join(" ").trim();
+if(p.textContent)container.appendChild(p);
+paragraph=[];
+}
+
+function closeList(){
+if(list){
+container.appendChild(list);
+list=null;
+}
+}
+
+lines.forEach(line=>{
+const trimmed=line.trim();
+
+if(!trimmed){
+flushParagraph();
+closeList();
+return;
+}
+
+const heading=trimmed.match(/^(#{1,3})\s+(.+)$/);
+
+if(heading){
+flushParagraph();
+closeList();
+const level=heading[1].length;
+const h=document.createElement(level===1?"h2":level===2?"h2":"h3");
+h.textContent=heading[2];
+container.appendChild(h);
+return;
+}
+
+if(/^[-*]\s+/.test(trimmed)){
+flushParagraph();
+if(!list)list=document.createElement("ul");
+const li=document.createElement("li");
+li.textContent=trimmed.replace(/^[-*]\s+/,"");
+list.appendChild(li);
+return;
+}
+
+if(/^>\s*/.test(trimmed)){
+flushParagraph();
+closeList();
+const quote=document.createElement("blockquote");
+quote.textContent=trimmed.replace(/^>\s*/,"");
+container.appendChild(quote);
+return;
+}
+
+closeList();
+paragraph.push(trimmed);
+});
+
+flushParagraph();
+closeList();
+
+if(!container.children.length){
+container.textContent="لا يتوفر محتوى لهذا المقال حالياً.";
+}
+}
+
+function renderSources(value){
+const section=$("sourcesSection");
+const list=$("sourcesList");
+list.replaceChildren();
+
+let sources=[];
+
+if(Array.isArray(value)){
+sources=value;
+}else if(typeof value==="string" && value.trim()){
+sources=value.split(/\n|;/).map(x=>x.trim()).filter(Boolean);
+}
+
+if(!sources.length){
+section.hidden=true;
+return;
+}
+
+sources.forEach(source=>{
+const li=document.createElement("li");
+const text=String(source);
+
+try{
+const url=new URL(text);
+if(url.protocol==="https:"||url.protocol==="http:"){
+const a=document.createElement("a");
+a.href=url.href;
+a.textContent=url.hostname;
+a.target="_blank";
+a.rel="noopener noreferrer";
+li.appendChild(a);
+}else{
+li.textContent=text;
+}
+}catch(e){
+li.textContent=text;
+}
+
+list.appendChild(li);
+});
+
+section.hidden=false;
+}
+
+function buildTOC(){
+const list=$("tocList");
+list.replaceChildren();
+
+const headings=$("articleContent").querySelectorAll("h2,h3");
+
+if(!headings.length){
+const li=document.createElement("li");
+li.className="toc-empty";
+li.textContent="لا توجد عناوين فرعية في هذا المقال.";
+list.appendChild(li);
+return;
+}
+
+headings.forEach((heading,index)=>{
+const id="article-heading-"+index;
+heading.id=id;
+
+const li=document.createElement("li");
+if(heading.tagName==="H3")li.style.paddingRight="13px";
+
+const a=document.createElement("a");
+a.href="#"+id;
+a.textContent=heading.textContent;
+
+li.appendChild(a);
+list.appendChild(li);
+});
+}
+
+function displayArticle(article){
+currentArticle=article;
+
+$("loadingState").hidden=true;
+$("errorState").hidden=true;
+$("articlePage").hidden=false;
+
+document.title=(article.title||"قراءة المقال")+" | معالم وأعلام إسلامية";
+
+$("articleCategory").textContent=article.category||"مقال ثقافي";
+$("articleTitle").textContent=article.title||"مقال بدون عنوان";
+$("articleExcerpt").textContent=article.excerpt||"";
+$("articleAuthor").textContent="✍ بقلم: "+(article.author||"هيئة التحرير");
+$("articleDate").textContent="📅 "+formatDate(article.date||article.created_at);
+$("readingTime").textContent=estimateReadingTime(article.content);
+
+$("breadcrumbTitle").textContent=article.title||"المقال";
+
+const img=$("articleImage");
+img.src=safeImage(article.image)||fallbackImage();
+img.alt=article.title||"صورة المقال";
+img.onerror=()=>{
+img.onerror=null;
+img.src=fallbackImage();
+};
+
+renderContent(article.content);
+renderSources(article.sources||article.references);
+buildTOC();
+
+loadRelated(article);
+}
+
+/* المقالات ذات الصلة */
+async function loadRelated(article){
+if(!article.category)return;
+
+try{
+const category=encodeURIComponent(article.category);
+const id=encodeURIComponent(article.id);
+
+const related=await sbFetch(
+`articles?select=id,title,excerpt,category&category=eq.${category}&id=neq.${id}&order=created_at.desc&limit=3`
+);
+
+if(!Array.isArray(related)||!related.length)return;
+
+const grid=$("relatedGrid");
+grid.replaceChildren();
+
+related.forEach(item=>{
+const card=document.createElement("div");
+card.className="related-card";
+
+const cat=document.createElement("span");
+cat.textContent=item.category||"من الموسوعة";
+
+const title=document.createElement("h3");
+title.textContent=item.title||"مقال";
+
+const excerpt=document.createElement("p");
+excerpt.textContent=item.excerpt||"اقرأ المزيد عن هذا الموضوع.";
+
+const link=document.createElement("a");
+link.href="article.html?id="+encodeURIComponent(item.id);
+link.textContent="قراءة المقال ←";
+
+card.append(cat,title,excerpt,link);
+grid.appendChild(card);
+});
+
+$("relatedSection").hidden=false;
+
+}catch(error){
+console.warn("Related articles unavailable:",error);
+}
+}
+
+/* مشاركة المقال */
+$("shareBtn").addEventListener("click",async()=>{
+if(!currentArticle)return;
+
+const shareData={
+title:currentArticle.title||"معالم وأعلام إسلامية",
+text:currentArticle.excerpt||"اقرأ هذا المقال من موسوعة معالم وأعلام إسلامية.",
+url:location.href
+};
+
+try{
+if(navigator.share){
+await navigator.share(shareData);
+}else{
+await copyLink();
+}
+}catch(error){
+if(error.name!=="AbortError"){
+await copyLink();
+}
+}
+});
+
+/* نسخ الرابط */
+async function copyLink(){
+try{
+if(navigator.clipboard && window.isSecureContext){
+await navigator.clipboard.writeText(location.href);
+}else{
+const input=document.createElement("textarea");
+input.value=location.href;
+input.style.position="fixed";
+input.style.opacity="0";
+document.body.appendChild(input);
+input.select();
+const success=document.execCommand("copy");
+input.remove();
+if(!success)throw new Error("Copy failed");
+}
+
+$("copyBtn").textContent="✓ تم نسخ الرابط";
+setTimeout(()=>$("copyBtn").textContent="▣ نسخ الرابط",2200);
+
+}catch(error){
+alert("تعذر نسخ الرابط تلقائياً. يمكنك نسخه من شريط العنوان.");
+}
+}
+
+$("copyBtn").addEventListener("click",copyLink);
+$("printBtn").addEventListener("click",()=>window.print());
+
+/* مؤشر تقدم القراءة */
+window.addEventListener("scroll",()=>{
+const doc=document.documentElement;
+const max=doc.scrollHeight-doc.clientHeight;
+const progress=max>0?(doc.scrollTop/max)*100:0;
+$("progressBar").style.width=progress+"%";
+});
+
+/* تحميل المقال */
+async function loadArticle(){
+if(!articleId){
+showError("لم يتم تحديد المقال","يرجى فتح المقال من خلال رابط صحيح.");
+return;
+}
+
+if(!HAS_DB){
+showError("قاعدة البيانات غير متصلة","تحقق من إعدادات الاتصال في config.js.");
+return;
+}
+
+try{
+const id=encodeURIComponent(articleId);
+
+const result=await sbFetch(
+`articles?select=*&id=eq.${id}&limit=1`
+);
+
+if(!Array.isArray(result)||!result.length){
+showError("المقال غير موجود","لم نعثر على مقال بهذا الرقم. ربما حُذف أو لم يعد متاحاً.");
+return;
+}
+
+displayArticle(result[0]);
+
+}catch(error){
+console.error("Article loading error:",error);
+showError("تعذر تحميل المقال","حدث خطأ أثناء الاتصال بقاعدة البيانات. تحقق من الإنترنت وحاول مرة أخرى.");
+}
+}
+
+loadArticle();
+</script>
+
+</body>
+</html>
