@@ -291,6 +291,7 @@
 
       <div class="nav-actions">
         <button class="btn btn-secondary" id="refreshAllBtn" type="button">↻ تحديث البيانات</button>
+        <a class="btn btn-secondary" href="studio.html">استوديو الكتابة والنمو</a>
         <a class="btn btn-primary" href="index.html">عرض الموقع الرئيسي ←</a>
       </div>
     </div>
@@ -602,6 +603,14 @@
         info.append(title, meta, excerpt);
 
         const actions = makeEl("div", "item-actions");
+
+        const viewLink = document.createElement("a");
+        viewLink.className = "btn btn-green btn-sm";
+        viewLink.href = `article.html?id=${encodeURIComponent(art.id)}`;
+        viewLink.target = "_blank";
+        viewLink.rel = "noopener noreferrer";
+        viewLink.textContent = "عرض";
+
         const editBtn = makeEl("button", "btn btn-ghost btn-sm", "تعديل");
         editBtn.type = "button";
         editBtn.addEventListener("click", () => startEditArticle(art));
@@ -610,7 +619,7 @@
         delBtn.type = "button";
         delBtn.addEventListener("click", () => deleteArticle(art.id));
 
-        actions.append(editBtn, delBtn);
+        actions.append(viewLink, editBtn, delBtn);
         row.append(info, actions);
         wrap.append(row);
       });
