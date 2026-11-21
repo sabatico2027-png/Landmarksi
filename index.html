@@ -234,12 +234,22 @@
     .article-info { padding: 20px; display: flex; flex-direction: column; flex: 1; }
     .article-meta { font-size: .77rem; color: var(--muted); margin-bottom: 8px; }
     .article-info h3 { font-size: 1.15rem; color: var(--green); line-height: 1.5; margin-bottom: 8px; }
+    .article-info h3 a:hover { color: var(--green2); text-decoration: underline; }
     .article-info p { font-size: .88rem; color: var(--muted); flex: 1; margin-bottom: 17px; }
+    .card-actions { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
     .read-more {
       background: var(--green); color: var(--gold2);
       border: 0; padding: 9px 15px; border-radius: 9px;
-      font-weight: 700; width: fit-content;
+      font-family: 'Cairo', sans-serif; font-weight: 700; font-size: .85rem;
+      display: inline-flex; align-items: center; gap: 6px; transition: .2s;
     }
+    .read-more:hover { background: var(--green2); }
+    .quick-read {
+      background: var(--paper); color: var(--green);
+      border: 1px solid var(--border); padding: 8px 13px; border-radius: 9px;
+      font-family: 'Cairo', sans-serif; font-weight: 700; font-size: .82rem; transition: .2s;
+    }
+    .quick-read:hover { border-color: var(--gold); }
 
     /* Featured personality */
     .personality {
@@ -316,12 +326,19 @@
     /* Footer */
     footer {
       background: var(--deep); color: #e4e0d4;
-      padding: 45px 0 20px; border-top: 3px solid var(--gold);
+      padding: 45px 0 24px; border-top: 3px solid var(--gold);
       text-align: center;
     }
     .footer-title { font-size: 1.3rem; color: var(--gold2); font-weight: 800; }
     .footer-links { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin: 20px 0; }
     .footer-links a { font-size: .85rem; color: #e4e0d4; }
+    .footer-tools { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-top: 15px; }
+    .footer-pill {
+      display: inline-block; padding: 6px 15px; border-radius: 999px;
+      border: 1px solid rgba(200, 155, 60, .4); color: var(--gold2);
+      font-size: .82rem; font-family: 'Cairo', sans-serif; font-weight: 700; transition: .2s;
+    }
+    .footer-pill:hover { background: rgba(200, 155, 60, .18); }
     .copyright { font-size: .78rem; opacity: .65; }
 
     /* Modal */
@@ -394,9 +411,9 @@
         <a href="#articles">المقالات</a>
         <a href="#personality">أعلام الأمة</a>
         <a href="#regions">المناطق</a>
-        <a href="#channels">المنصات</a>
+        <a href="#channels">منصاتنا</a>
         <a href="#newsletter">النشرة البريدية</a>
-        <a href="#articles" id="savedLink">المحفوظات ★</a>
+        <a href="#articles" id="navFavLink">المحفوظات ★</a>
       </nav>
     </div>
   </header>
@@ -599,11 +616,14 @@
       <p class="copyright">
         جميع الحقوق محفوظة © 2026 — Landmarksi
       </p>
-      <a href="admin.html" style="display:inline-block;margin-top:15px;color:#c89b3c;font-size:.82rem">بوابة الإدارة والتحرير</a>
+      <div class="footer-tools">
+        <a href="admin.html" class="footer-pill">بوابة الإدارة والتحرير</a>
+        <a href="studio.html" class="footer-pill">استوديو الكتابة والنمو</a>
+      </div>
     </div>
   </footer>
 
-  <!-- Article Modal -->
+  <!-- Article Quick Modal -->
   <div class="modal" id="articleModal" role="dialog" aria-modal="true">
     <div class="modal-box">
       <img id="modalImg" alt="صورة المقال" />
@@ -613,6 +633,9 @@
         <h2 id="modalTitle"></h2>
         <p id="modalMeta" style="color:#777;font-size:.82rem;margin-bottom:15px"></p>
         <div class="modal-text" id="modalBody"></div>
+        <div style="margin-top:22px;padding-top:16px;border-top:1px solid var(--border);display:flex;justify-content:flex-end;">
+          <a id="modalFullPageLink" href="article.html" class="read-more">فتح في صفحة المقال الكاملة ←</a>
+        </div>
       </div>
     </div>
   </div>
@@ -748,6 +771,8 @@
       filtered.forEach(article => {
         const strId = String(article.id);
         const isSaved = savedIds.includes(strId);
+        const articleUrl = `article.html?id=${encodeURIComponent(strId)}`;
+
         const card = element("article", "article-card");
         const cover = element("div", "article-cover");
 
@@ -773,14 +798,26 @@
         const info = element("div", "article-info");
         info.append(element("div", "article-meta", "✍ " + (article.author || "هيئة التحرير") + "  •  " + (article.date || "")));
 
-        const title = element("h3", "", article.title || "مقال بدون عنوان");
+        const title = element("h3");
+        const titleLink = document.createElement("a");
+        titleLink.href = articleUrl;
+        titleLink.textContent = article.title || "مقال بدون عنوان";
+        title.append(titleLink);
+
         const excerpt = element("p", "", article.excerpt || "اكتشف تفاصيل هذا الموضوع في المقال الكامل.");
 
-        const read = element("button", "read-more", "اقرأ المقال ←");
-        read.type = "button";
-        read.addEventListener("click", () => openArticle(strId));
+        const actionsWrap = element("div", "card-actions");
+        const fullLink = document.createElement("a");
+        fullLink.className = "read-more";
+        fullLink.href = articleUrl;
+        fullLink.textContent = "اقرأ المقال ←";
 
-        info.append(title, excerpt, read);
+        const quickBtn = element("button", "quick-read", "معاينة سريعة");
+        quickBtn.type = "button";
+        quickBtn.addEventListener("click", () => openArticle(strId));
+
+        actionsWrap.append(fullLink, quickBtn);
+        info.append(title, excerpt, actionsWrap);
         card.append(cover, info);
         grid.append(card);
       });
@@ -843,6 +880,7 @@
       document.getElementById("modalTitle").textContent = article.title || "";
       document.getElementById("modalMeta").textContent = "بقلم: " + (article.author || "هيئة التحرير") + " | " + (article.date || "");
       document.getElementById("modalBody").textContent = article.content || article.excerpt || "";
+      document.getElementById("modalFullPageLink").href = `article.html?id=${encodeURIComponent(article.id)}`;
 
       document.getElementById("articleModal").classList.add("open");
       document.body.style.overflow = "hidden";
@@ -890,7 +928,7 @@
       });
     });
 
-    document.getElementById("savedLink").addEventListener("click", () => {
+    document.getElementById("navFavLink").addEventListener("click", () => {
       currentFilter = "saved";
       document.querySelectorAll(".tab").forEach(b => b.classList.toggle("active", b.dataset.filter === "saved"));
       renderArticles();
