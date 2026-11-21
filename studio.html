@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#063729" />
+  <title>استوديو الكتابة ولوحة النمو | معالم وأعلام إسلامية</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --green: #063729;
+      --deep: #041f18;
+      --green2: #0b5942;
+      --gold: #c89b3c;
+      --gold2: #e2bd72;
+      --cream: #fbf9f4;
+      --paper: #f3eee3;
+      --ink: #192b24;
+      --muted: #6c7b73;
+      --white: #ffffff;
+      --border: rgba(6, 55, 41, .13);
+      --shadow: 0 10px 35px rgba(4, 31, 24, .08);
+      --radius: 18px;
+      --danger: #991b1b;
+      --danger-bg: #fef2f2;
+      --ok: #065f46;
+      --ok-bg: #ecfdf5;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'IBM Plex Sans Arabic', sans-serif;
+      background: var(--cream);
+      color: var(--ink);
+      line-height: 1.75;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    h1, h2, h3, h4, button, label { font-family: 'Cairo', sans-serif; }
+    a { text-decoration: none; color: inherit; }
+    button { cursor: pointer; }
+    .container { width: min(1240px, 92%); margin: auto; }
+
+    /* Header */
+    header {
+      position: sticky; top: 0; z-index: 1000;
+      background: rgba(4, 31, 24, .97);
+      border-bottom: 2px solid var(--gold);
+      backdrop-filter: blur(12px);
+    }
+    .nav {
+      min-height: 80px;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 14px; flex-wrap: wrap;
+    }
+    .brand { display: flex; align-items: center; gap: 12px; color: var(--white); }
+    .logo {
+      width: 48px; height: 48px; border: 1px solid var(--gold);
+      border-radius: 14px; display: grid; place-items: center;
+      color: var(--gold2); font-size: 25px;
+      background: linear-gradient(145deg, var(--green2), var(--deep));
+    }
+    .brand-name { font-weight: 800; color: var(--gold2); font-size: 1.06rem; }
+    .brand-sub { font-size: .72rem; color: #ddd5c2; }
+    .nav-links { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .nav-links a, .nav-links button {
+      padding: 8px 14px; border-radius: 10px; font-size: .88rem; font-weight: 700;
+    }
+    .nav-link { color: #eee9dc; border: 1px solid transparent; transition: .2s; }
+    .nav-link:hover { color: var(--gold2); background: rgba(255,255,255,.07); }
+
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 10px 18px; border-radius: 10px;
+      font-weight: 700; font-size: .9rem; border: 1px solid transparent; transition: .2s;
+    }
+    .btn:disabled { opacity: .6; cursor: not-allowed; }
+    .btn-gold { background: var(--gold); color: var(--deep); }
+    .btn-gold:hover:not(:disabled) { background: var(--gold2); transform: translateY(-2px); }
+    .btn-green { background: var(--green); color: var(--gold2); }
+    .btn-green:hover:not(:disabled) { background: var(--green2); }
+    .btn-ghost { background: var(--paper); color: var(--ink); border-color: var(--border); }
+    .btn-ghost:hover:not(:disabled) { border-color: var(--gold); }
+    .btn-danger { background: var(--danger-bg); color: var(--danger); border-color: rgba(153,27,27,.25); }
+    .btn-danger:hover:not(:disabled) { background: var(--danger); color: var(--white); }
+    .btn-sm { padding: 7px 12px; font-size: .82rem; border-radius: 8px; }
+
+    /* Hero */
+    .studio-hero {
+      background: linear-gradient(155deg, var(--green), var(--deep));
+      color: var(--white);
+      padding: 38px 0 68px;
+      border-bottom: 3px solid var(--gold);
+    }
+    .eyebrow {
+      display: inline-block;
+      border: 1px solid rgba(200, 155, 60, .5);
+      color: var(--gold2); padding: 5px 14px; border-radius: 999px;
+      font-size: .82rem; margin-bottom: 12px; background: rgba(200, 155, 60, .12);
+    }
+    .studio-hero h1 { font-size: clamp(1.7rem, 3.4vw, 2.5rem); font-weight: 800; margin-bottom: 8px; }
+    .studio-hero h1 span { color: var(--gold2); }
+    .studio-hero p { color: #e2dfd3; font-size: .95rem; max-width: 740px; }
+
+    /* KPI Grid */
+    .kpi-wrap { position: relative; z-index: 3; margin-top: -36px; margin-bottom: 26px; }
+    .kpi-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
+    }
+    .kpi-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 20px; box-shadow: var(--shadow);
+      border-top: 4px solid var(--gold);
+    }
+    .kpi-label { font-size: .84rem; color: var(--muted); margin-bottom: 6px; }
+    .kpi-val { font-family: 'Cairo'; font-size: 1.8rem; font-weight: 800; color: var(--green); line-height: 1.2; }
+    .kpi-sub { font-size: .78rem; color: var(--green2); margin-top: 6px; font-weight: 600; }
+
+    /* Alert Banner */
+    .banner {
+      display: none; padding: 13px 18px; border-radius: 14px;
+      margin-bottom: 20px; font-size: .9rem; border: 1px solid transparent;
+    }
+    .banner.show { display: block; }
+    .banner.warn { background: #fffbeb; color: #92400e; border-color: #f59e0b66; }
+    .banner.err { background: var(--danger-bg); color: var(--danger); border-color: #ef444455; }
+    .banner.ok { background: var(--ok-bg); color: var(--ok); border-color: #10b98155; }
+
+    /* Mode Tabs */
+    .mode-tabs { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 24px; }
+    .mode-tab {
+      padding: 10px 20px; border-radius: 11px;
+      border: 1px solid var(--border); background: var(--white);
+      color: var(--ink); font-weight: 700; font-size: .92rem; transition: .2s;
+    }
+    .mode-tab.active, .mode-tab:hover {
+      background: var(--green); color: var(--gold2); border-color: var(--green);
+    }
+
+    /* Writer & Live Preview Split */
+    .writer-grid {
+      display: grid; grid-template-columns: 1.15fr 0.95fr; gap: 22px; align-items: start;
+      margin-bottom: 56px;
+    }
+    .panel {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow);
+    }
+    .panel-head {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 10px; flex-wrap: wrap;
+      padding-bottom: 14px; margin-bottom: 18px; border-bottom: 1px solid var(--border);
+    }
+    .panel-head h2 { font-size: 1.2rem; color: var(--green); }
+
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
+    .field.full { grid-column: 1 / -1; }
+    .field label { font-size: .86rem; font-weight: 700; color: var(--green); }
+    .field input, .field select, .field textarea {
+      width: 100%; padding: 11px 14px; border-radius: 11px;
+      border: 1.5px solid var(--border); background: var(--cream);
+      font-family: inherit; font-size: .92rem; color: var(--ink); outline: none; transition: .2s;
+    }
+    .field input:focus, .field select:focus, .field textarea:focus {
+      border-color: var(--green2); background: var(--white);
+    }
+    .field textarea { min-height: 150px; resize: vertical; }
+    .helper-row {
+      display: flex; justify-content: space-between; font-size: .78rem; color: var(--muted); margin-top: 4px;
+    }
+
+    /* Live Preview Card */
+    .preview-card {
+      border: 1px solid var(--border); border-radius: 16px; overflow: hidden; background: var(--cream);
+    }
+    .preview-cover { height: 210px; background: var(--deep); overflow: hidden; position: relative; }
+    .preview-cover img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .preview-body { padding: 20px; }
+    .preview-cat {
+      display: inline-block; background: var(--green); color: var(--gold2);
+      padding: 4px 12px; border-radius: 999px; font-size: .76rem; font-weight: 700; margin-bottom: 10px;
+    }
+    .preview-title { font-size: 1.28rem; font-weight: 800; color: var(--green); margin-bottom: 6px; }
+    .preview-meta { font-size: .8rem; color: var(--muted); margin-bottom: 12px; }
+    .preview-excerpt {
+      background: var(--white); border-right: 3px solid var(--gold);
+      padding: 10px 14px; border-radius: 8px; font-size: .9rem; color: var(--ink); margin-bottom: 12px;
+    }
+    .preview-content { font-size: .94rem; line-height: 1.9; color: var(--ink); white-space: pre-line; max-height: 280px; overflow-y: auto; }
+
+    /* Analytics & Growth Section */
+    .growth-grid {
+      display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 22px; margin-bottom: 24px;
+    }
+    .bars-list { display: flex; flex-direction: column; gap: 14px; }
+    .bar-row { display: flex; flex-direction: column; gap: 6px; }
+    .bar-top { display: flex; justify-content: space-between; font-size: .88rem; font-weight: 700; color: var(--green); }
+    .bar-track {
+      height: 12px; background: var(--paper); border-radius: 999px; overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    .bar-fill {
+      height: 100%; background: linear-gradient(90deg, var(--green2), var(--gold));
+      border-radius: 999px; transition: width .35s ease;
+    }
+
+    .activity-log { display: flex; flex-direction: column; gap: 10px; max-height: 300px; overflow-y: auto; }
+    .log-item {
+      padding: 12px 14px; border-radius: 12px; background: var(--cream);
+      border: 1px solid var(--border); display: flex; justify-content: space-between; gap: 10px; font-size: .86rem;
+    }
+    .log-time { color: var(--muted); font-size: .78rem; white-space: nowrap; }
+
+    .items-list { display: flex; flex-direction: column; gap: 12px; margin-top: 14px; }
+    .item-row {
+      border: 1px solid var(--border); background: var(--cream); border-radius: 14px;
+      padding: 14px; display: flex; justify-content: space-between; align-items: center; gap: 12px;
+    }
+    .item-title { font-weight: 800; color: var(--green); font-size: .98rem; }
+    .item-meta { font-size: .8rem; color: var(--muted); }
+    .item-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+
+    .empty-box {
+      text-align: center; padding: 32px 16px; color: var(--muted);
+      background: var(--cream); border-radius: 14px; border: 1px dashed var(--border);
+    }
+
+    .toast {
+      position: fixed; bottom: 20px; left: 20px; z-index: 3000;
+      background: var(--deep); color: var(--white); border: 1px solid var(--gold);
+      padding: 11px 18px; border-radius: 12px; font-size: .88rem; font-weight: 600;
+      opacity: 0; transform: translateY(14px); pointer-events: none; transition: .22s;
+    }
+    .toast.show { opacity: 1; transform: translateY(0); }
+
+    footer {
+      margin-top: auto; background: var(--deep); color: #e4e0d4;
+      padding: 28px 0; border-top: 3px solid var(--gold); text-align: center; font-size: .85rem;
+    }
+
+    @media (max-width: 980px) {
+      .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+      .writer-grid, .growth-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 580px) {
+      .kpi-grid { grid-template-columns: 1fr; }
+      .form-grid { grid-template-columns: 1fr; }
+      .item-row { flex-direction: column; align-items: stretch; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="container nav">
+      <a class="brand" href="index.html">
+        <div class="logo">۞</div>
+        <div>
+          <div class="brand-name">استوديو الكتابة ولوحة النمو</div>
+          <div class="brand-sub">معالم وأعلام إسلامية</div>
+        </div>
+      </a>
+      <div class="nav-links">
+        <a class="nav-link" href="index.html">الموقع الرئيسي</a>
+        <a class="nav-link" href="admin.html">بوابة الإدارة</a>
+        <button class="btn btn-gold btn-sm" id="syncBtn" type="button">↻ مزامنة</button>
+      </div>
+    </div>
+  </header>
+
+  <section class="studio-hero">
+    <div class="container">
+      <div class="eyebrow">✦ مساحة التحرير ومتابعة النمو</div>
+      <h1>اكتب مقالاتك وتابع <span>نمو المنصة والزائرين</span></h1>
+      <p>محرر فوري بمعاينة حية قبل النشر، ولوحة تفاعلية لمتابعة توزيع المحتوى، المشتركين، المحفوظات، وحركة الزيارات.</p>
+    </div>
+  </section>
+
+  <div class="container kpi-wrap">
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-label">إجمالي الزيارات المسجلة</div>
+        <div class="kpi-val" id="kpiVisitors">0</div>
+        <div class="kpi-sub" id="kpiVisitorsSub">جلسات المتصفح + مشاهدات المقالات</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">المقالات المنشورة</div>
+        <div class="kpi-val" id="kpiArticles">0</div>
+        <div class="kpi-sub" id="kpiAvgWords">متوسط الطول: 0 كلمة</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">مشتركو النشرة البريدية</div>
+        <div class="kpi-val" id="kpiSubscribers">0</div>
+        <div class="kpi-sub">نمو قائمة المتابعين</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">العناصر المحفوظة والمنصات</div>
+        <div class="kpi-val" id="kpiSavedChannels">0 / 0</div>
+        <div class="kpi-sub">محفوظات القراء / منصات نشطة</div>
+      </div>
+    </div>
+  </div>
+
+  <main class="container">
+    <div id="banner" class="banner" role="alert"></div>
+
+    <div class="mode-tabs">
+      <button class="mode-tab active" type="button" data-mode="write">صفحة الكتابة والمعاينة</button>
+      <button class="mode-tab" type="button" data-mode="growth">لوحة نمو المنصة والزائرين</button>
+      <button class="mode-tab" type="button" data-mode="library">إدارة المسودات والمقالات</button>
+    </div>
+
+    <!-- وضع الكتابة والمعاينة -->
+    <section id="mode-write" class="writer-grid">
+      <div class="panel">
+        <div class="panel-head">
+          <h2 id="editorHeading">تحرير مقال جديد</h2>
+          <button class="btn btn-ghost btn-sm" id="clearEditorBtn" type="button">مقال جديد</button>
+        </div>
+
+        <form id="studioForm">
+          <input type="hidden" id="editId" />
+
+          <div class="field full">
+            <label for="fTitle">عنوان المقال *</label>
+            <input type="text" id="fTitle" required placeholder="اكتب عنواناً واضحاً وجذاباً..." />
+          </div>
+
+          <div class="form-grid">
+            <div class="field">
+              <label for="fCategory">التصنيف *</label>
+              <select id="fCategory">
+                <option value="معالم إسلامية">معالم إسلامية</option>
+                <option value="أعلام إسلامية">أعلام إسلامية</option>
+                <option value="تاريخ وحضارة">تاريخ وحضارة</option>
+                <option value="العلوم الإسلامية">العلوم الإسلامية</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="fDate">تاريخ النشر</label>
+              <input type="date" id="fDate" />
+            </div>
+
+            <div class="field">
+              <label for="fAuthor">الكاتب / القسم</label>
+              <input type="text" id="fAuthor" placeholder="هيئة التحرير" />
+            </div>
+
+            <div class="field">
+              <label for="fImage">رابط الصورة (اختياري)</label>
+              <input type="url" id="fImage" placeholder="https://..." />
+            </div>
+          </div>
+
+          <div class="field full">
+            <label for="fKeywords">كلمات مفتاحية</label>
+            <input type="text" id="fKeywords" placeholder="مثال: الأندلس، قرطبة، عمارة، علماء" />
+          </div>
+
+          <div class="field full">
+            <label for="fExcerpt">المقدمة / الملخص المختصر *</label>
+            <textarea id="fExcerpt" style="min-height:85px;" required placeholder="خلاصة مركزة تشجع القارئ على إكمال المقال..."></textarea>
+          </div>
+
+          <div class="field full">
+            <label for="fContent">نص المقال الكامل *</label>
+            <textarea id="fContent" required placeholder="ابدأ الكتابة هنا..."></textarea>
+            <div class="helper-row">
+              <span id="wordCounter">0 كلمة</span>
+              <span id="readTimeCounter">زمن القراءة: ~1 دقيقة</span>
+            </div>
+          </div>
+
+          <div class="form-actions" style="display:flex;gap:10px;flex-wrap:wrap;">
+            <button class="btn btn-gold" id="publishBtn" type="submit">نشر في قاعدة البيانات</button>
+            <button class="btn btn-ghost" id="saveDraftBtn" type="button">حفظ كمسودة محلية</button>
+          </div>
+        </form>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head">
+          <h2>معاينة فورية للقارئ</h2>
+          <span style="font-size:.8rem;color:var(--muted);">تتحدث تلقائياً أثناء الكتابة</span>
+        </div>
+
+        <div class="preview-card">
+          <div class="preview-cover">
+            <img id="prevImg" alt="معاينة الصورة" />
+          </div>
+          <div class="preview-body">
+            <span class="preview-cat" id="prevCat">معالم إسلامية</span>
+            <h3 class="preview-title" id="prevTitle">عنوان المقال سيظهر هنا</h3>
+            <div class="preview-meta" id="prevMeta">✍ هيئة التحرير • —</div>
+            <div class="preview-excerpt" id="prevExcerpt">الملخص المختصر للمقال سيظهر هنا...</div>
+            <div class="preview-content" id="prevContent">نص المقال الكامل سيظهر هنا أثناء الكتابة لتراجع التنسيق والوضوح قبل النشر.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- وضع لوحة نمو المنصة والزائرين -->
+    <section id="mode-growth" style="display:none;margin-bottom:56px;">
+      <div class="growth-grid">
+        <div class="panel">
+          <div class="panel-head">
+            <h2>توزيع المقالات حسب التصنيف</h2>
+            <span style="font-size:.82rem;color:var(--muted);">نسبة كل قسم من إجمالي المحتوى</span>
+          </div>
+          <div id="categoryBars" class="bars-list"></div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head">
+            <h2>محاكاة وتسجيل حركة الزيارات</h2>
+            <button class="btn btn-green btn-sm" id="addVisitBtn" type="button">+ تسجيل زيارة تجريبية</button>
+          </div>
+          <p style="font-size:.88rem;color:var(--muted);margin-bottom:14px;">
+            يعرض هذا السجل نشاط الزيارات والمشاهدات المسجلة في المتصفح مع إجمالي المشاهدات من قاعدة البيانات (إن وُجد عمود <code>views</code>).
+          </p>
+          <div id="activityLog" class="activity-log"></div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head">
+          <h2>أكثر المقالات تفاعلاً وقراءة</h2>
+          <button class="btn btn-ghost btn-sm" id="exportReportBtn" type="button">تصدير ملخص النمو (CSV)</button>
+        </div>
+        <div id="topArticlesList" class="items-list"></div>
+      </div>
+    </section>
+
+    <!-- وضع المسودات والمقالات -->
+    <section id="mode-library" style="display:none;margin-bottom:56px;">
+      <div class="growth-grid">
+        <div class="panel">
+          <div class="panel-head">
+            <h2>المسودات المحفوظة محلياً</h2>
+          </div>
+          <div id="draftsList" class="items-list"></div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head">
+            <h2>المقالات المنشورة في المنصة</h2>
+          </div>
+          <div id="publishedList" class="items-list"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p style="font-family:'Cairo';font-weight:700;color:var(--gold2);margin-bottom:4px;">معالم وأعلام إسلامية — استوديو الكتابة والنمو</p>
+      <p style="opacity:.75;">جميع الحقوق محفوظة © 2026 — Landmarksi</p>
+    </div>
+  </footer>
+
+  <div id="toast" class="toast"></div>
+
+  <script src="config.js"></script>
+  <script>
+    const DB = window.LANDMARKSI_DB || {};
+    const HAS_DB = Boolean(DB.url && DB.anonKey && !DB.url.includes("YOUR-PROJECT-ID"));
+
+    const CATEGORIES = ["معالم إسلامية", "أعلام إسلامية", "تاريخ وحضارة", "العلوم الإسلامية"];
+    const STORAGE_DRAFTS = "landmarksi_studio_drafts";
+    const STORAGE_VISIT_LOGS = "landmarksi_visit_logs";
+    const STORAGE_MANUAL_VISITS = "landmarksi_manual_visits";
+
+    let articles = [];
+    let channels = [];
+    let subscribers = [];
+    let drafts = [];
+    let visitLogs = [];
+
+    function toast(msg) {
+      const el = document.getElementById("toast");
+      el.textContent = msg;
+      el.classList.add("show");
+      clearTimeout(toast._t);
+      toast._t = setTimeout(() => el.classList.remove("show"), 2500);
+    }
+
+    function banner(type, text) {
+      const b = document.getElementById("banner");
+      b.className = `banner show ${type}`;
+      b.textContent = text;
+    }
+
+    function hideBanner() {
+      const b = document.getElementById("banner");
+      b.className = "banner";
+      b.textContent = "";
+    }
+
+    function safeUrl(raw) {
+      if (!raw) return "";
+      try {
+        const u = new URL(String(raw).trim(), location.href);
+        return ["http:", "https:"].includes(u.protocol) ? u.href : "";
+      } catch (e) { return ""; }
+    }
+
+    function fallbackSvg(title, cat) {
+      const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="800" height="420">
+        <rect width="100%" height="100%" fill="#063729"/>
+        <circle cx="400" cy="170" r="80" fill="none" stroke="#c89b3c" stroke-width="3"/>
+        <text x="400" y="295" fill="#e2bd72" font-size="25" text-anchor="middle">${String(cat || "تراث إسلامي").replace(/[<>&]/g, "")}</text>
+        <text x="400" y="335" fill="#fff" font-size="20" text-anchor="middle">${String(title || "معاينة المقال").replace(/[<>&]/g, "").slice(0, 38)}</text>
+      </svg>`;
+      return "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(svg);
+    }
+
+    function el(tag, className, text) {
+      const n = document.createElement(tag);
+      if (className) n.className = className;
+      if (text !== undefined && text !== null) n.textContent = String(text);
+      return n;
+    }
+
+    async function sbFetch(path, options = {}) {
+      const res = await fetch(`${DB.url}/rest/v1/${path}`, {
+        ...options,
+        headers: {
+          apikey: DB.anonKey,
+          Authorization: `Bearer ${DB.anonKey}`,
+          "Content-Type": "application/json",
+          ...(options.headers || {})
+        }
+      });
+      if (!res.ok) throw new Error(await res.text());
+      const t = await res.text();
+      return t ? JSON.parse(t) : null;
+    }
+
+    function loadLocalState() {
+      try { drafts = JSON.parse(localStorage.getItem(STORAGE_DRAFTS) || "[]"); } catch (e) { drafts = []; }
+      if (!Array.isArray(drafts)) drafts = [];
+
+      try { visitLogs = JSON.parse(localStorage.getItem(STORAGE_VISIT_LOGS) || "[]"); } catch (e) { visitLogs = []; }
+      if (!Array.isArray(visitLogs)) visitLogs = [];
+
+      const sessionKey = "landmarksi_session_counted";
+      if (!sessionStorage.getItem(sessionKey)) {
+        sessionStorage.setItem(sessionKey, "1");
+        const manual = Number(localStorage.getItem(STORAGE_MANUAL_VISITS) || "0") + 1;
+        localStorage.setItem(STORAGE_MANUAL_VISITS, String(manual));
+        visitLogs.unshift({
+          label: "زيارة جديدة للاستوديو",
+          detail: new Date().toLocaleDateString("ar-EG"),
+          time: new Date().toLocaleTimeString("ar-EG", { hour: "2-digit", minute: "2-digit" })
+        });
+        visitLogs = visitLogs.slice(0, 30);
+        localStorage.setItem(STORAGE_VISIT_LOGS, JSON.stringify(visitLogs));
+      }
+    }
+
+    function getArticleViewsMap() {
+      try { return JSON.parse(localStorage.getItem("landmarksi_article_views") || "{}"); } catch (e) { return {}; }
+    }
+
+    function getSavedIds() {
+      try {
+        const s = JSON.parse(localStorage.getItem("landmarksi_saved") || "[]");
+        return Array.isArray(s) ? s : [];
+      } catch (e) { return []; }
+    }
+
+    function computeTotalVisitors() {
+      const manual = Number(localStorage.getItem(STORAGE_MANUAL_VISITS) || "0");
+      const localViews = Object.values(getArticleViewsMap()).reduce((acc, n) => acc + (Number(n) || 0), 0);
+      const dbViews = articles.reduce((acc, a) => acc + (Number(a.views) || 0), 0);
+      return manual + localViews + dbViews;
+    }
+
+    function updateKPIs() {
+      const visitors = computeTotalVisitors();
+      document.getElementById("kpiVisitors").textContent = visitors;
+
+      document.getElementById("kpiArticles").textContent = articles.length;
+      const totalWords = articles.reduce((sum, a) => {
+        const w = String(a.content || a.excerpt || "").trim().split(/\s+/).filter(Boolean).length;
+        return sum + w;
+      }, 0);
+      const avg = articles.length ? Math.round(totalWords / articles.length) : 0;
+      document.getElementById("kpiAvgWords").textContent = `متوسط الطول: ${avg} كلمة`;
+
+      document.getElementById("kpiSubscribers").textContent = subscribers.length;
+      document.getElementById("kpiSavedChannels").textContent = `${getSavedIds().length} / ${channels.length}`;
+    }
+
+    /* التبديل بين أوضاع الاستوديو */
+    document.querySelectorAll(".mode-tab").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const mode = btn.dataset.mode;
+        document.querySelectorAll(".mode-tab").forEach(b => b.classList.toggle("active", b === btn));
+        document.getElementById("mode-write").style.display = mode === "write" ? "" : "none";
+        document.getElementById("mode-growth").style.display = mode === "growth" ? "" : "none";
+        document.getElementById("mode-library").style.display = mode === "library" ? "" : "none";
+        if (mode === "growth") renderGrowth();
+        if (mode === "library") renderLibrary();
+      });
+    });
+
+    /* معاينة الكتابة الحية */
+    function updatePreview() {
+      const title = document.getElementById("fTitle").value.trim() || "عنوان المقال سيظهر هنا";
+      const cat = document.getElementById("fCategory").value;
+      const date = document.getElementById("fDate").value || "—";
+      const author = document.getElementById("fAuthor").value.trim() || "هيئة التحرير";
+      const rawImg = document.getElementById("fImage").value.trim();
+      const excerpt = document.getElementById("fExcerpt").value.trim() || "الملخص المختصر للمقال سيظهر هنا...";
+      const content = document.getElementById("fContent").value.trim() || "نص المقال الكامل سيظهر هنا أثناء الكتابة لتراجع التنسيق والوضوح قبل النشر.";
+
+      const imgEl = document.getElementById("prevImg");
+      imgEl.src = safeUrl(rawImg) || fallbackSvg(title, cat);
+      imgEl.onerror = () => { imgEl.onerror = null; imgEl.src = fallbackSvg(title, cat); };
+
+      document.getElementById("prevCat").textContent = cat;
+      document.getElementById("prevTitle").textContent = title;
+      document.getElementById("prevMeta").textContent = `✍ ${author} • 📅 ${date}`;
+      document.getElementById("prevExcerpt").textContent = excerpt;
+      document.getElementById("prevContent").textContent = content;
+
+      const words = content === "نص المقال الكامل سيظهر هنا أثناء الكتابة لتراجع التنسيق والوضوح قبل النشر."
+        ? 0
+        : content.split(/\s+/).filter(Boolean).length;
+      const mins = Math.max(1, Math.ceil(words / 180));
+      document.getElementById("wordCounter").textContent = `${words} كلمة`;
+      document.getElementById("readTimeCounter").textContent = `زمن القراءة: ~${mins} دقيقة`;
+    }
+
+    ["fTitle", "fCategory", "fDate", "fAuthor", "fImage", "fExcerpt", "fContent"].forEach(id => {
+      document.getElementById(id).addEventListener("input", updatePreview);
+      document.getElementById(id).addEventListener("change", updatePreview);
+    });
+
+    function resetEditor(data = null) {
+      document.getElementById("editId").value = data?.id || "";
+      document.getElementById("fTitle").value = data?.title || "";
+      document.getElementById("fCategory").value = CATEGORIES.includes(data?.category) ? data.category : "معالم إسلامية";
+      document.getElementById("fDate").value = (data?.date || new Date().toISOString().slice(0, 10)).slice(0, 10);
+      document.getElementById("fAuthor").value = data?.author || "هيئة التحرير";
+      document.getElementById("fImage").value = data?.image || "";
+      document.getElementById("fKeywords").value = data?.keywords || "";
+      document.getElementById("fExcerpt").value = data?.excerpt || "";
+      document.getElementById("fContent").value = data?.content || "";
+      document.getElementById("editorHeading").textContent = data?.id ? "تعديل مقال منشور" : "تحرير مقال جديد";
+      document.getElementById("publishBtn").textContent = data?.id ? "تحديث المقال في قاعدة البيانات" : "نشر في قاعدة البيانات";
+      updatePreview();
+    }
+
+    document.getElementById("clearEditorBtn").addEventListener("click", () => resetEditor());
+
+    /* حفظ مسودة محلية */
+    document.getElementById("saveDraftBtn").addEventListener("click", () => {
+      const title = document.getElementById("fTitle").value.trim();
+      const content = document.getElementById("fContent").value.trim();
+      if (!title && !content) return toast("اكتب عنواناً أو محتوى لحفظه كمسودة");
+
+      const draft = {
+        draftId: "draft-" + Date.now(),
+        title: title || "مسودة بدون عنوان",
+        category: document.getElementById("fCategory").value,
+        date: document.getElementById("fDate").value || new Date().toISOString().slice(0, 10),
+        author: document.getElementById("fAuthor").value.trim() || "هيئة التحرير",
+        image: document.getElementById("fImage").value.trim(),
+        keywords: document.getElementById("fKeywords").value.trim(),
+        excerpt: document.getElementById("fExcerpt").value.trim(),
+        content
+      };
+      drafts.unshift(draft);
+      localStorage.setItem(STORAGE_DRAFTS, JSON.stringify(drafts));
+      toast("تم حفظ المسودة محلياً");
+      renderLibrary();
+    });
+
+    /* نشر أو تحديث مقال في Supabase */
+    document.getElementById("studioForm").addEventListener("submit", async e => {
+      e.preventDefault();
+      if (!HAS_DB) return banner("warn", "تعذر النشر: تحقق من إعدادات config.js.");
+
+      const editId = document.getElementById("editId").value.trim();
+      const rawImg = document.getElementById("fImage").value.trim();
+      const payload = {
+        title: document.getElementById("fTitle").value.trim(),
+        category: document.getElementById("fCategory").value,
+        date: document.getElementById("fDate").value || new Date().toISOString().slice(0, 10),
+        author: document.getElementById("fAuthor").value.trim() || "هيئة التحرير",
+        image: rawImg ? (safeUrl(rawImg) || "") : "",
+        keywords: document.getElementById("fKeywords").value.trim(),
+        excerpt: document.getElementById("fExcerpt").value.trim(),
+        content: document.getElementById("fContent").value.trim()
+      };
+
+      const btn = document.getElementById("publishBtn");
+      btn.disabled = true;
+
+      try {
+        if (editId) {
+          await sbFetch(`articles?id=eq.${encodeURIComponent(editId)}`, {
+            method: "PATCH",
+            headers: { Prefer: "return=representation" },
+            body: JSON.stringify(payload)
+          });
+          toast("تم تحديث المقال بنجاح");
+        } else {
+          await sbFetch("articles", {
+            method: "POST",
+            headers: { Prefer: "return=representation" },
+            body: JSON.stringify(payload)
+          });
+          toast("تم نشر المقال بنجاح");
+        }
+        resetEditor();
+        await syncData();
+      } catch (err) {
+        console.error(err);
+        banner("err", "حدث خطأ أثناء حفظ المقال: " + err.message);
+      } finally {
+        btn.disabled = false;
+      }
+    });
+
+    /* عرض لوحة نمو المنصة */
+    function renderGrowth() {
+      const bars = document.getElementById("categoryBars");
+      bars.replaceChildren();
+      const total = articles.length || 1;
+
+      CATEGORIES.forEach(cat => {
+        const count = articles.filter(a => a.category === cat).length;
+        const pct = Math.round((count / total) * 100);
+        const row = el("div", "bar-row");
+        const top = el("div", "bar-top");
+        top.append(el("span", "", cat), el("span", "", `${count} مقال (${pct}%)`));
+        const track = el("div", "bar-track");
+        const fill = el("div", "bar-fill");
+        fill.style.width = `${pct}%`;
+        track.append(fill);
+        row.append(top, track);
+        bars.append(row);
+      });
+
+      const logWrap = document.getElementById("activityLog");
+      logWrap.replaceChildren();
+      if (!visitLogs.length) {
+        logWrap.append(el("div", "empty-box", "لا توجد أحداث زيارة مسجلة بعد."));
+      } else {
+        visitLogs.forEach(item => {
+          const r = el("div", "log-item");
+          r.append(el("span", "", `${item.label} — ${item.detail || ""}`), el("span", "log-time", item.time || ""));
+          logWrap.append(r);
+        });
+      }
+
+      const viewsMap = getArticleViewsMap();
+      const savedList = getSavedIds().map(String);
+      const topWrap = document.getElementById("topArticlesList");
+      topWrap.replaceChildren();
+
+      if (!articles.length) {
+        topWrap.append(el("div", "empty-box", "لا توجد مقالات منشورة لعرض إحصائياتها."));
+        return;
+      }
+
+      const ranked = [...articles]
+        .map(a => ({
+          ...a,
+          score: (Number(a.views) || 0) + (Number(viewsMap[String(a.id)]) || 0) + (savedList.includes(String(a.id)) ? 2 : 0)
+        }))
+        .sort((a, b) => b.score - a.score)
+        .slice(0, 6);
+
+      ranked.forEach(art => {
+        const row = el("div", "item-row");
+        const left = el("div");
+        left.append(
+          el("div", "item-title", art.title || "مقال"),
+          el("div", "item-meta", `${art.category || "عام"} • مؤشر التفاعل والمشاهدات: ${art.score}`)
+        );
+        const link = document.createElement("a");
+        link.className = "btn btn-ghost btn-sm";
+        link.href = `article.html?id=${encodeURIComponent(art.id)}`;
+        link.textContent = "فتح المقال ←";
+        row.append(left, link);
+        topWrap.append(row);
+      });
+    }
+
+    document.getElementById("addVisitBtn").addEventListener("click", () => {
+      const manual = Number(localStorage.getItem(STORAGE_MANUAL_VISITS) || "0") + 1;
+      localStorage.setItem(STORAGE_MANUAL_VISITS, String(manual));
+      visitLogs.unshift({
+        label: "زيارة مسجلة يدوياً",
+        detail: new Date().toLocaleDateString("ar-EG"),
+        time: new Date().toLocaleTimeString("ar-EG", { hour: "2-digit", minute: "2-digit" })
+      });
+      visitLogs = visitLogs.slice(0, 30);
+      localStorage.setItem(STORAGE_VISIT_LOGS, JSON.stringify(visitLogs));
+      updateKPIs();
+      renderGrowth();
+      toast("تم تسجيل الزيارة وتحديث العداد");
+    });
+
+    document.getElementById("exportReportBtn").addEventListener("click", () => {
+      const rows = [
+        ["metric", "value"],
+        ["total_visitors", computeTotalVisitors()],
+        ["total_articles", articles.length],
+        ["total_subscribers", subscribers.length],
+        ["total_channels", channels.length],
+        ["saved_bookmarks", getSavedIds().length]
+      ];
+      const csv = rows.map(r => r.map(v => `"${String(v).replace(/"/g, '""')}"`).join(",")).join("\n");
+      const blob = new Blob(["\uFEFF" + csv], { type: "text/csv;charset=utf-8;" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "landmarksi_growth_report.csv";
+      a.click();
+      URL.revokeObjectURL(url);
+      toast("تم تصدير تقرير النمو CSV");
+    });
+
+    /* عرض المسودات والمقالات المنشورة */
+    function renderLibrary() {
+      const draftsWrap = document.getElementById("draftsList");
+      draftsWrap.replaceChildren();
+
+      if (!drafts.length) {
+        draftsWrap.append(el("div", "empty-box", "لا توجد مسودات محفوظة حالياً."));
+      } else {
+        drafts.forEach(d => {
+          const row = el("div", "item-row");
+          const left = el("div");
+          left.append(el("div", "item-title", d.title), el("div", "item-meta", `${d.category} • ${d.date}`));
+          const acts = el("div", "item-actions");
+
+          const loadBtn = el("button", "btn btn-ghost btn-sm", "فتح للتحرير");
+          loadBtn.type = "button";
+          loadBtn.addEventListener("click", () => {
+            resetEditor(d);
+            document.querySelector('.mode-tab[data-mode="write"]').click();
+          });
+
+          const delBtn = el("button", "btn btn-danger btn-sm", "حذف");
+          delBtn.type = "button";
+          delBtn.addEventListener("click", () => {
+            drafts = drafts.filter(x => x.draftId !== d.draftId);
+            localStorage.setItem(STORAGE_DRAFTS, JSON.stringify(drafts));
+            renderLibrary();
+            toast("تم حذف المسودة");
+          });
+
+          acts.append(loadBtn, delBtn);
+          row.append(left, acts);
+          draftsWrap.append(row);
+        });
+      }
+
+      const pubWrap = document.getElementById("publishedList");
+      pubWrap.replaceChildren();
+      if (!articles.length) {
+        pubWrap.append(el("div", "empty-box", "لا توجد مقالات منشورة."));
+        return;
+      }
+
+      articles.forEach(art => {
+        const row = el("div", "item-row");
+        const left = el("div");
+        left.append(el("div", "item-title", art.title || "مقال"), el("div", "item-meta", `${art.category || "عام"} • ${art.date || ""}`));
+        const acts = el("div", "item-actions");
+
+        const editBtn = el("button", "btn btn-ghost btn-sm", "تعديل");
+        editBtn.type = "button";
+        editBtn.addEventListener("click", () => {
+          resetEditor(art);
+          document.querySelector('.mode-tab[data-mode="write"]').click();
+        });
+
+        const viewLink = document.createElement("a");
+        viewLink.className = "btn btn-green btn-sm";
+        viewLink.href = `article.html?id=${encodeURIComponent(art.id)}`;
+        viewLink.textContent = "عرض";
+
+        acts.append(editBtn, viewLink);
+        row.append(left, acts);
+        pubWrap.append(row);
+      });
+    }
+
+    async function syncData() {
+      hideBanner();
+      if (!HAS_DB) {
+        banner("warn", "لم يتم إعداد اتصال قاعدة البيانات في config.js. يمكنك اختبار الكتابة والمسودات ولوحة النمو محلياً.");
+        updateKPIs();
+        renderGrowth();
+        renderLibrary();
+        return;
+      }
+
+      try {
+        const [a, c, s] = await Promise.all([
+          sbFetch("articles?select=*&order=created_at.desc"),
+          sbFetch("channels?select=*&order=sort_order.asc"),
+          sbFetch("subscribers?select=*&order=created_at.desc")
+        ]);
+        articles = Array.isArray(a) ? a : [];
+        channels = Array.isArray(c) ? c : [];
+        subscribers = Array.isArray(s) ? s : [];
+        updateKPIs();
+        renderGrowth();
+        renderLibrary();
+      } catch (err) {
+        console.error(err);
+        banner("err", "تعذر مزامنة البيانات من Supabase: " + err.message);
+        updateKPIs();
+      }
+    }
+
+    document.getElementById("syncBtn").addEventListener("click", async () => {
+      await syncData();
+      toast("تمت المزامنة");
+    });
+
+    loadLocalState();
+    resetEditor();
+    syncData();
+  </script>
+</body>
+</html>
