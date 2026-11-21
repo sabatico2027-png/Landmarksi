@@ -1,0 +1,83 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>اختبار اتصال Landmarksi</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f3f6f4;
+      padding: 30px;
+      text-align: center;
+      color: #183b2b;
+    }
+    .box {
+      max-width: 500px;
+      margin: 40px auto;
+      padding: 25px;
+      background: white;
+      border-radius: 14px;
+      box-shadow: 0 4px 18px #0001;
+    }
+    #result {
+      padding: 15px;
+      border-radius: 8px;
+      background: #eee;
+      overflow-wrap: anywhere;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h2>اختبار قاعدة بيانات Landmarksi</h2>
+    <p id="result">جارٍ اختبار الاتصال...</p>
+  </div>
+
+  <script src="config.js"></script>
+  <script>
+    async function testConnection() {
+      const result = document.getElementById("result");
+      const config = window.SUPABASE_CONFIG;
+
+      if (!config || !config.url || !config.key) {
+        result.textContent = "خطأ: لم يتم العثور على إعدادات Supabase.";
+        return;
+      }
+
+      try {
+        const response = await fetch(
+          config.url + "/rest/v1/articles?select=id,title&limit=5",
+          {
+            headers: {
+              apikey: config.key,
+              Authorization: "Bearer " + config.key
+            }
+          }
+        );
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error(data.message || data.hint || "HTTP " + response.status);
+        }
+
+        result.style.background = "#dff5e5";
+        result.innerHTML =
+          "<strong>نجح الاتصال بقاعدة البيانات!</strong><br>" +
+          "عدد المقالات المعروضة: " + data.length;
+
+        console.log("نتائج المقالات:", data);
+
+      } catch (error) {
+        result.style.background = "#ffe3e3";
+        result.textContent = "فشل الاتصال: " + error.message;
+        console.error(error);
+      }
+    }
+
+    testConnection();
+  </script>
+</body>
+</html>
